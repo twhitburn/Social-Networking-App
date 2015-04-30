@@ -35,7 +35,7 @@ public class UndirectedGraph<V> implements GraphADT<V>{
     	if (v1 == null || v2 == null) throw new IllegalArgumentException();
     	if (!hashmap.containsKey(v1) || !hashmap.containsKey(v2))
     		throw new IllegalArgumentException();
-    	if (!v1.equals(v2) || !hashmap.get(v1).contains(v2)) {
+    	if (!v1.equals(v2) && !hashmap.get(v1).contains(v2)) {
     		hashmap.get(v1).add(v2);
     		hashmap.get(v2).add(v1);
     		return true;
@@ -55,7 +55,7 @@ public class UndirectedGraph<V> implements GraphADT<V>{
     public void removeEdge(V v1, V v2) {
         if (v1 == null || v2 == null) throw new IllegalArgumentException();
         if (hashmap.containsKey(v1) && hashmap.containsKey(v2) 
-        		&& hashmap.get(v1).contains(v2)) {
+        		&& hashmap.get(v1).contains(v2) && hashmap.get(v2).contains(v1)) {
         	hashmap.get(v1).remove(v2);
         	hashmap.get(v2).remove(v1);
         }
