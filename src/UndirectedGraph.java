@@ -1,6 +1,7 @@
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 public class UndirectedGraph<V> implements GraphADT<V>{
@@ -20,32 +21,53 @@ public class UndirectedGraph<V> implements GraphADT<V>{
 
     @Override
     public boolean addVertex(V vertex) {
-        //TODO
+    	if (vertex == null) throw new IllegalArgumentException();
+    	if (!hashmap.containsKey(vertex)) {
+    		ArrayList<V> adjacencyList = new ArrayList<V>();
+    		hashmap.put(vertex, adjacencyList);
+    		return true;
+    	}
         return false;
     }
 
     @Override
     public boolean addEdge(V v1, V v2) {
-        //TODO
+    	if (v1 == null || v2 == null) throw new IllegalArgumentException();
+    	if (!hashmap.containsKey(v1) || !hashmap.containsKey(v2))
+    		throw new IllegalArgumentException();
+    	if (!v1.equals(v2) || !hashmap.get(v1).contains(v2)) {
+    		hashmap.get(v1).add(v2);
+    		hashmap.get(v2).add(v1);
+    		return true;
+    	}	
         return false;
     }
 
     @Override
     public Set<V> getNeighbors(V vertex) {
-        //TODO
-        return null;
+    	if (vertex == null || !hashmap.containsKey(vertex)) 
+    		throw new IllegalArgumentException();
+    	HashSet<V> set = new HashSet<V>(hashmap.get(vertex));
+		return set;
     }
 
     @Override
     public void removeEdge(V v1, V v2) {
-        //TODO
+        if (v1 == null || v2 == null) throw new IllegalArgumentException();
+        if (hashmap.containsKey(v1) && hashmap.containsKey(v2) 
+        		&& hashmap.get(v1).contains(v2)) {
+        	hashmap.get(v1).remove(v2);
+        	hashmap.get(v2).remove(v1);
+        }
         return;
     }
 
     @Override
     public Set<V> getAllVertices() {
         //TODO
-        return null;
+    	HashSet<V> set = new HashSet<V>();
+    	
+        return set;
     }
 
     /* (non-Javadoc)
