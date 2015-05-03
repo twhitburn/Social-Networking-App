@@ -34,6 +34,7 @@ public class SocialGraph extends UndirectedGraph<String> {
     
     public Set<String> friendsOfFriends(String person) {
         //TODO
+    	//HashSet<String> fof = new HashSet<String>();
         return null;
     }
 

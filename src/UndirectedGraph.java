@@ -64,10 +64,9 @@ public class UndirectedGraph<V> implements GraphADT<V>{
 
     @Override
     public Set<V> getAllVertices() {
-        //TODO
-    	HashSet<V> set = new HashSet<V>();
+     
+    	return hashmap.keySet();
     	
-        return set;
     }
 
     /* (non-Javadoc)
