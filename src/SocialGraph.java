@@ -34,8 +34,13 @@ public class SocialGraph extends UndirectedGraph<String> {
     
     public Set<String> friendsOfFriends(String person) {
         //TODO
+    	//check that the person exists
+    	if (!this.getAllVertices().contains(person)) {
+    		throw new IllegalArgumentException();
+    	}
     	//HashSet<String> fof = new HashSet<String>();
-        return null;
+
+    		return null;
     }
 
     public List<String> getPathBetween(String pFrom, String pTo) {
