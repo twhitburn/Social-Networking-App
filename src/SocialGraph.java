@@ -2,6 +2,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -38,9 +40,24 @@ public class SocialGraph extends UndirectedGraph<String> {
     	if (!this.getAllVertices().contains(person)) {
     		throw new IllegalArgumentException();
     	}
-    	//HashSet<String> fof = new HashSet<String>();
-
-    		return null;
+    	Set<String> fof = new HashSet<String>();
+    	Set<String> friends = new HashSet<String>();
+    	friends = this.getNeighbors(person);
+    	Iterator<String> itr = friends.iterator();
+    	while(itr.hasNext()) {
+    		Iterator<String> itr3 = this.getNeighbors(itr.next()).iterator();
+    		while (itr3.hasNext()) {
+    			fof.add(itr3.next());
+    		}
+    	}
+    	//get rid of the friends that are direct linked to person
+    	Iterator<String> itr2 = fof.iterator();
+    	while (itr2.hasNext()) {
+    		if (friends.contains(itr2.next())) {
+    			itr2.remove();
+    		}
+    	}
+    		return fof;
     }
 
     public List<String> getPathBetween(String pFrom, String pTo) {
