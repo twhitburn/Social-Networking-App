@@ -62,6 +62,12 @@ public class SocialGraph extends UndirectedGraph<String> {
 
     public List<String> getPathBetween(String pFrom, String pTo) {
         //TODO
+    	if (!this.getAllVertices().contains(pFrom) || 
+    			!this.getAllVertices().contains(pTo)) {
+    		throw new IllegalArgumentException();
+    	}
+    	ArrayList<String> path= new ArrayList<String>();
+    	
         return null;
     }
 
