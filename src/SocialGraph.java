@@ -50,7 +50,7 @@ public class SocialGraph extends UndirectedGraph<String> {
     			fof.add(itr3.next());
     		}
     	}
-    	//get rid of the friends that are direct linked to person
+    	//get rid of the friends that are direct friends of person
     	Iterator<String> itr2 = fof.iterator();
     	while (itr2.hasNext()) {
     		if (friends.contains(itr2.next())) {
@@ -66,7 +66,15 @@ public class SocialGraph extends UndirectedGraph<String> {
     			!this.getAllVertices().contains(pTo)) {
     		throw new IllegalArgumentException();
     	}
-    	ArrayList<String> path= new ArrayList<String>();
+    	//ArrayList<String> path= new ArrayList<String>();
+    	
+    	//Create frontier
+    	ArrayList<String> frontier = new ArrayList<String>();    	
+    	//Keep track of visited verticies
+    	Set<String> visited = new HashSet<String>();
+    	// Map every vertex in frontier and explored to its depth
+    	HashMap<String, ArrayList<String>> depths;
+    	//depths.put();
     	
         return null;
     }
