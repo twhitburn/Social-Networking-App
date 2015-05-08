@@ -15,6 +15,11 @@ public class SocialGraph extends UndirectedGraph<String> {
 	 * 
 	 * DO NOT MODIFY THIS CONSTRUCTOR.
 	 */
+	//declare  variables for getPath method
+	private ArrayList<String> path;
+	private Set<String> visited;
+	private ArrayList<String> frontier;
+	
 	public SocialGraph() {
 		super();
 	}
@@ -67,17 +72,39 @@ public class SocialGraph extends UndirectedGraph<String> {
 				!this.getAllVertices().contains(pTo)) {
 			throw new IllegalArgumentException();
 		}
-		//ArrayList<String> path= new ArrayList<String>();
-
-		//Create frontier
-		ArrayList<String> frontier = new ArrayList<String>();    	
-		//Keep track of visited verticies
-		Set<String> visited = new HashSet<String>();
+		path = new ArrayList<String>();
+		visited = new HashSet<String>();
+		frontier= new ArrayList<String>();
+		
+		path.add(pFrom);
+		visited.add(pFrom);
+		frontier.addAll(this.getNeighbors(pFrom));
+		
 		// Map every vertex in frontier and explored to its depth
-		HashMap<String, ArrayList<String>> depths;
-		//depths.put();
-
-		return null;
+		//HashMap<String, ArrayList<String>> depths;
+		while (!frontier.isEmpty()) {
+			dfs (frontier, pTo);
+		}
+		if (path.size() == 1) {
+			return null;
+		}
+		return path;
+	}
+	private boolean dfs(ArrayList<String> list, String pTo) {
+		for (int i = 0; i < list.size(); i++) {
+			//mark as visited
+			visited.add(list.get(i));
+			if (list.get(i).equals(pTo)) {
+				path.add(list.get(i));
+				return true;
+			}
+			ArrayList<String> temp = new ArrayList<String>();
+			temp.addAll(getNeighbors(list.get(i)));
+			if (dfs(temp,pTo)) {
+				path.add(list.get(i));
+			}
+		}
+		return false;
 	}
 
 
