@@ -1,5 +1,8 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -15,8 +18,24 @@ public class SocialNetworkingApp {
      * @throws FileNotFoundException if file does not exist
      */
     public static SocialGraph loadConnections(String filename) throws FileNotFoundException {
-        //TODO
-        return new SocialGraph();
+    	SocialGraph temp = new SocialGraph();
+    	Scanner sc = new Scanner(new File(filename));
+    	while (sc.hasNextLine()) {
+    		String s = sc.nextLine().substring(0, 3);
+    		temp.addVertex(s);
+    	}
+    	sc = new Scanner(new File(filename));
+		while (sc.hasNextLine()) {
+			String s = sc.nextLine();
+			String[] names = s.split(" ");
+			if (names.length > 1) {
+				for (int i = 1; i < names.length; i++) {
+					temp.addEdge(names[0], names[i]);
+				}
+			}
+		}
+		sc.close();
+		return temp;
     }
 
     static Scanner stdin = new Scanner(System.in);
@@ -56,6 +75,14 @@ public class SocialNetworkingApp {
      * of currUser. Assumes currUser exists in the network.
      * @param currUser
      */
+    private static String printList (ArrayList<String> list) {
+    	String s = "[";
+		for (int i = 0; i < list.size()-1; i++) {
+			s += list.get(i) + ", ";
+		}
+		s += list.get(list.size()-1) + "]";
+		return s;
+    }
     public static void enterSubMenu(String currUser) {
 
         // Define the set of commands that have no arguments or one argument
@@ -92,30 +119,61 @@ public class SocialNetworkingApp {
             switch(cmd) {
 
             case "connection": {
-                //TODO
+            	String p2 = tokens[1];
+				if (graph.getPathBetween(currUser, p2) == null) {
+					System.out.println("You are not connected to " + p2);
+					break;
+				}
+				ArrayList<String> temp = (ArrayList<String>) graph.getPathBetween(currUser, p2);
+				System.out.println(printList(temp));
                 break;
             }
-
+            
             case "friends": {
-                //TODO
+                if (graph.getNeighbors(currUser).isEmpty()) {
+                	System.out.println("You do not have any friends");
+                	break;
+                }
+                ArrayList<String> temp = new ArrayList<String>();
+                temp.addAll(graph.getNeighbors(currUser));
+                Collections.sort(temp);
+                System.out.println(printList(temp));
                 break;
             }
 
             case "fof": {
-                //TODO
+            	ArrayList<String> temp = new ArrayList<String>();
+            	temp.addAll(graph.friendsOfFriends(currUser));
+            	Collections.sort(temp);
+            	if (temp.isEmpty()) {
+            		System.out.println("You do not have any friends of friends");
+            		break;
+            	}
+            	System.out.println(printList(temp));
                 break;
             }
 
             case "friend": {
-                //TODO
+            	String p2 = tokens[1];
+            	if (graph.addEdge(currUser, p2)) {
+            		System.out.println("You are now friends with " + p2);
+            		break;
+            	}
+            	System.out.println("You are already friends with " + p2);
                 break;
             }
 
             case "unfriend": {
-                //TODO
+            	String p2 = tokens[1];
+            	if (graph.getNeighbors(currUser).contains(p2)) {
+            		graph.removeEdge(currUser, p2);
+            		System.out.println("You are no longer friends with " + p2);
+            		break;
+            	}
+            	System.out.println("You are already not friends with " + p2);
                 break;
             }
-
+            
             case "print": {
                 // This command is left here for your debugging needs.
                 // You may want to call graph.toString() or graph.pprint() here
@@ -123,6 +181,7 @@ public class SocialNetworkingApp {
             	//
                 // YOU DO NOT NEED TO COMPLETE THIS COMMAND
                 // THIS COMMAND WILL NOT BE PART OF GRADING
+            	System.out.println(graph.toString());
                 break;
             }
 
