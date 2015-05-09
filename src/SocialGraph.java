@@ -15,11 +15,9 @@ public class SocialGraph extends UndirectedGraph<String> {
 	 * 
 	 * DO NOT MODIFY THIS CONSTRUCTOR.
 	 */
-	//declare  variables for getPath method
-	private ArrayList<String> path;
-	private Set<String> visited;
-	private ArrayList<String> frontier;
-	
+
+
+
 	public SocialGraph() {
 		super();
 	}
@@ -72,40 +70,40 @@ public class SocialGraph extends UndirectedGraph<String> {
 				!this.getAllVertices().contains(pTo)) {
 			throw new IllegalArgumentException();
 		}
-		path = new ArrayList<String>();
-		visited = new HashSet<String>();
-		frontier= new ArrayList<String>();
-		
-		path.add(pFrom);
-		visited.add(pFrom);
-		frontier.addAll(this.getNeighbors(pFrom));
-		
-		// Map every vertex in frontier and explored to its depth
-		//HashMap<String, ArrayList<String>> depths;
+
+		Set<String> visited = new HashSet<String>();
+		ArrayList<SearchNode<String>> frontier= new ArrayList<SearchNode
+				<String>>();
+
+		SearchNode<String> node = new SearchNode<String>(pFrom, new 
+				ArrayList<String>());
+		frontier.add(node);
+		visited.add(node.getName());
 		while (!frontier.isEmpty()) {
-			dfs (frontier, pTo);
-		}
-		if (path.size() == 1) {
-			return null;
-		}
-		return path;
-	}
-	private boolean dfs(ArrayList<String> list, String pTo) {
-		for (int i = 0; i < list.size(); i++) {
-			//mark as visited
-			visited.add(list.get(i));
-			if (list.get(i).equals(pTo)) {
-				path.add(list.get(i));
-				return true;
-			}
+			SearchNode<String> predNode = frontier.remove(0);
 			ArrayList<String> temp = new ArrayList<String>();
-			temp.addAll(getNeighbors(list.get(i)));
-			if (dfs(temp,pTo)) {
-				path.add(list.get(i));
+			temp.addAll(this.getNeighbors(predNode.getName()));
+			//put successors in the frontier queue
+			for (int i = 0; i < temp.size(); i++) {
+				if (visited.contains(temp.get(i))) continue; 
+				ArrayList<String> predList = new ArrayList<String>();
+				predList.addAll(predNode.getPred());
+					predList.add(predNode.getName());
+				SearchNode<String> tempNode = new SearchNode<String> 
+				(temp.get(i), predList);
+				if (tempNode.getName().equals(pTo)) {
+					tempNode.getPred().add(pTo);
+					return tempNode.getPred();
+				}
+				if (!visited.contains(tempNode.getName())) {
+					frontier.add(tempNode);
+					visited.add(temp.get(i));
+				}
 			}
 		}
-		return false;
+		return null;
 	}
+
 
 
 	/**
