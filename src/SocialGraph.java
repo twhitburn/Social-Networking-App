@@ -69,7 +69,7 @@ public class SocialGraph extends UndirectedGraph<String> {
 	public Set<String> friendsOfFriends(String person) {
 		
 		//check that the person exists
-		if (!this.getAllVertices().contains(person)) {
+		if (!this.getAllVertices().contains(person) || person == null) {
 			throw new IllegalArgumentException();
 		}
 		Set<String> fof = new HashSet<String>();

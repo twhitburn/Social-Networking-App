@@ -38,6 +38,9 @@ public class SearchNode<V> {
 	 * @param pred predecessors of the node
 	 */
 	public SearchNode(V state, ArrayList<V> pred) {
+		if (state == null || pred == null) throw new IllegalArgumentException();
+			
+			
 		this.state = state;
 		this.predecessors = pred;
 		
