@@ -1,3 +1,28 @@
+///////////////////////////////////////////////////////////////////////////////
+//                   ALL STUDENTS COMPLETE THESE SECTIONS
+// Title:            SocialNetworkingApp
+// Files:            SocialNetworkingApp.java
+//                   GraphADT.java
+//                   UndirectedGraph.java
+//                   SocialGraph.java
+//                   SearchNode.java
+//
+// Semester:         CS367 Spring 2015
+//
+// Author:           Thomas Whitburn
+// Email:            twhitburn@wisc.edu
+// CS Login:         whitburn
+// Lecturer's Name:  Jim Skrentny
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ////////////////////
+//
+// Pair Partner:     Haomin Li
+// Email:            hli256@wisc.edu
+// CS Login:         haomin
+// Lecturer's Name:  Jim Skrentny
+//
+//////////////////////////// 80 columns wide //////////////////////////////////
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -7,17 +32,26 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-
+/**
+ * This class implements GraphADT with an adjacency lists representation. 
+ * The graph has the following properties, as enforced by the addEdge() method:
+ * -The graph has no loops, i.e., no vertex has an edge to itself.
+ * -The graph is not a multigraph, i.e., two vertices will not have more than 
+ * one edge connecting them.
+ *
+ * @author Thomas Whitburn, Haomin Li
+ */
 public class SocialNetworkingApp {
 
     /**
      * Returns a social network as defined in the file 'filename'.
      * See assignment handout on the expected file format.
      * @param filename filename of file containing social connection data
-     * @return
+     * @return SocialGraph object
      * @throws FileNotFoundException if file does not exist
      */
-    public static SocialGraph loadConnections(String filename) throws FileNotFoundException {
+    public static SocialGraph loadConnections(String filename) throws 
+    FileNotFoundException {
     	SocialGraph temp = new SocialGraph();
     	Scanner sc = new Scanner(new File(filename));
     	while (sc.hasNextLine()) {
@@ -124,7 +158,8 @@ public class SocialNetworkingApp {
 					System.out.println("You are not connected to " + p2);
 					break;
 				}
-				ArrayList<String> temp = (ArrayList<String>) graph.getPathBetween(currUser, p2);
+				ArrayList<String> temp = (ArrayList<String>) graph.
+						getPathBetween(currUser, p2);
 				System.out.println(printList(temp));
                 break;
             }
@@ -146,7 +181,8 @@ public class SocialNetworkingApp {
             	temp.addAll(graph.friendsOfFriends(currUser));
             	Collections.sort(temp);
             	if (temp.isEmpty()) {
-            		System.out.println("You do not have any friends of friends");
+            		System.out.println("You do not have any friends of "
+            				+ "friends");
             		break;
             	}
             	System.out.println(printList(temp));
@@ -181,7 +217,7 @@ public class SocialNetworkingApp {
             	//
                 // YOU DO NOT NEED TO COMPLETE THIS COMMAND
                 // THIS COMMAND WILL NOT BE PART OF GRADING
-            	System.out.println(graph.toString());
+            	//System.out.println(graph.toString());
                 break;
             }
 

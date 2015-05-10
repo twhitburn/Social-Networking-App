@@ -1,3 +1,22 @@
+///////////////////////////////////////////////////////////////////////////////
+//                   ALL STUDENTS COMPLETE THESE SECTIONS
+// Main Class File:  SocailNetworkingApp.java
+// File:             SocailGraph.java
+// Semester:         CS367 Spring 2015
+//
+// Author:           Thomas Whitburn twhitburn@wisc.edu
+// CS Login:         whitburn
+// Lecturer's Name:  Jim Skrentny
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ////////////////////
+//
+// Pair Partner:     Haomin Li
+// Email:            hli256@wisc.edu
+// CS Login:         haomin
+// Lecturer's Name:  Jim Skrentny
+//
+//////////////////////////// 80 columns wide //////////////////////////////////
+
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +26,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * This class represents a simplified social network. It extends 
+ * UndirectedGraph<String> with methods specific to social networking.
+ *
+ * @author Thomas Whitburn, Haomin Li
+ */
 public class SocialGraph extends UndirectedGraph<String> {
 
 	/**
@@ -15,8 +39,6 @@ public class SocialGraph extends UndirectedGraph<String> {
 	 * 
 	 * DO NOT MODIFY THIS CONSTRUCTOR.
 	 */
-
-
 
 	public SocialGraph() {
 		super();
@@ -37,8 +59,15 @@ public class SocialGraph extends UndirectedGraph<String> {
 		super(hashmap);
 	}
 
+	/**
+	 * Returns a set of 2-degree friends of person, if person exists in this 
+	 * graph. Otherwise, throws IllegalArgumentException.
+	 *
+	 * @param person Person to retrieve friends of friends for
+	 * @return Set of the friends of friends of a specified person in network
+	 */
 	public Set<String> friendsOfFriends(String person) {
-		//TODO
+		
 		//check that the person exists
 		if (!this.getAllVertices().contains(person)) {
 			throw new IllegalArgumentException();
@@ -64,8 +93,20 @@ public class SocialGraph extends UndirectedGraph<String> {
 		return fof;
 	}
 
+	
+	/**
+	 * Returns the shortest path between two people or null if there is no path
+	 * between them, if both people exist in this graph and they are not the 
+	 * same person. Otherwise, throws IllegalArgumentException. The returned 
+	 * list should begin with personFrom and end with personTo. Only returns one
+	 * path if multiple solutions exist.
+	 *
+	 * @param pFrom person to start with
+	 * @param pTo person to get to by traversing social graph
+	 * @return list of the people who connect two users
+	 */
 	public List<String> getPathBetween(String pFrom, String pTo) {
-		//TODO
+
 		if (!this.getAllVertices().contains(pFrom) || 
 				!this.getAllVertices().contains(pTo)) {
 			throw new IllegalArgumentException();
