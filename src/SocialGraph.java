@@ -67,7 +67,7 @@ public class SocialGraph extends UndirectedGraph<String> {
 	 * @return Set of the friends of friends of a specified person in network
 	 */
 	public Set<String> friendsOfFriends(String person) {
-		
+
 		//check that the person exists
 		if (!this.getAllVertices().contains(person) || person == null) {
 			throw new IllegalArgumentException();
@@ -93,7 +93,7 @@ public class SocialGraph extends UndirectedGraph<String> {
 		return fof;
 	}
 
-	
+
 	/**
 	 * Returns the shortest path between two people or null if there is no path
 	 * between them, if both people exist in this graph and they are not the 
@@ -129,7 +129,7 @@ public class SocialGraph extends UndirectedGraph<String> {
 				if (visited.contains(temp.get(i))) continue; 
 				ArrayList<String> predList = new ArrayList<String>();
 				predList.addAll(predNode.getPred());
-					predList.add(predNode.getName());
+				predList.add(predNode.getName());
 				SearchNode<String> tempNode = new SearchNode<String> 
 				(temp.get(i), predList);
 				if (tempNode.getName().equals(pTo)) {

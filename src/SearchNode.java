@@ -39,13 +39,13 @@ public class SearchNode<V> {
 	 */
 	public SearchNode(V state, ArrayList<V> pred) {
 		if (state == null || pred == null) throw new IllegalArgumentException();
-			
-			
+
+
 		this.state = state;
 		this.predecessors = pred;
-		
+
 	}
-	
+
 	/**
 	 * Returns the state of the node.
 	 * 
@@ -54,7 +54,7 @@ public class SearchNode<V> {
 	public V getName() {
 		return this.state;
 	} 
-	
+
 	/**
 	 * Returns the a list of the predecessors of the node.
 	 * 
@@ -63,6 +63,6 @@ public class SearchNode<V> {
 	public ArrayList<V> getPred() {
 		return this.predecessors;
 	}
-	
-	
+
+
 }
